@@ -1,15 +1,21 @@
 {
   "name": "password-utility",
   "version": "0.0.1",
-  "description": "\"# My Awesome Greeter\"",
-  "main": "index.js",
+  "description": "Password Utility for generating RegEx",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "lint": "tslint -p tsconfig.json",
     "test": "jest --config jestconfig.json",
-    "start": "tsc src/index.ts"
+    "start": "tsc src/index.ts",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "git add -A src",
+    "postversion": "git push && git push --tags"
   },
-  "author": "",
+  "author": "RakCode",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^29.4.0",
@@ -17,5 +23,6 @@
     "ts-jest": "^29.0.5",
     "tslint": "^6.1.3",
     "typescript": "^4.9.5"
-  }
+  },
+  "keywords": ["Password", "Password Generator", "Password Rules Generator", "Password RegEx generator"]
 }
