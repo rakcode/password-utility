@@ -24,6 +24,7 @@ export interface PasswordOptions{
 }
 
 export const generateRegex = (config?: PasswordOptions) => {
+
     const defaultConfig = {
         minLength: 8,
         maxLength: 0,
@@ -36,8 +37,11 @@ export const generateRegex = (config?: PasswordOptions) => {
         symbolsConfig: { min: 1, max: 0 },
         numbersConfig: { min: 1, max: 0 }
     };
+
     if(!config) config = defaultConfig;
+
     config = { ...defaultConfig, ...config };
+
     const {
         minLength,
         maxLength,
@@ -50,7 +54,9 @@ export const generateRegex = (config?: PasswordOptions) => {
         number: numbers,
         numbersConfig
     } = config;
+
     let regEx = "^";
+
     if(lowercase) {
         let { min, max } : any = lowercaseConfig;
         min = min ? min : "";
@@ -59,6 +65,7 @@ export const generateRegex = (config?: PasswordOptions) => {
         if(min || max)  minMax = `{${min},${max}}`;
         regEx += `(?=.*[a-z]${minMax})`;
     } else regEx += `(?=.*[a-z]?)`;
+
     if(uppercase) {
         let { min, max } : any = uppercaseConfig;
         min = min ? min : "";
@@ -67,6 +74,7 @@ export const generateRegex = (config?: PasswordOptions) => {
         if(min || max)  minMax = `{${min},${max}}`;
         regEx += `(?=.*[A-Z]${minMax})`;
     } else regEx += `(?=.*[A-Z]?)`;
+
     if(numbers) {
         let { min, max } : any = numbersConfig;
         min = min ? min : "";
@@ -75,6 +83,7 @@ export const generateRegex = (config?: PasswordOptions) => {
         if(min || max)  minMax = `{${min},${max}}`;
         regEx += `(?=.*\\d${minMax})`;
     } else regEx += `(?=.*\\d?)`;
+
     if(symbols) {
         let { min, max } : any = symbolsConfig;
         min = min ? min : "";
@@ -83,6 +92,7 @@ export const generateRegex = (config?: PasswordOptions) => {
         if(min || max)  minMax = `{${min},${max}}`;
         regEx += `(?=.*[@$!%*?&]${minMax})`;
     } else regEx += `(?=.*[@$!%*?&]?)`;
+    
     const _minLen = minLength ? minLength : 8;
     const _maxLen = maxLength ? maxLength : "";
     regEx += `[A-Za-z\\d@$!%*?&]`;
